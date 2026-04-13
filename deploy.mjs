@@ -13,10 +13,10 @@ const NOTE_DEMO_PATH = join(
 );
 
 const vaults = [
-  { name: 'Pro', path: join(BASE_PATH, '.obsidian-pro/plugins/obsidian-notes') },
-  { name: '2017', path: join(BASE_PATH, '.obsidian-2017/plugins/obsidian-notes') },
-  { name: 'Zhang', path: join(BASE_PATH, '.obsidian-zhang/plugins/obsidian-notes') },
-  { name: 'Note-Demo', path: join(NOTE_DEMO_PATH, '.obsidian/plugins/obsidian-notes') }
+  { name: 'Pro', path: join(BASE_PATH, '.obsidian-pro/plugins/applenotes-sync') },
+  { name: '2017', path: join(BASE_PATH, '.obsidian-2017/plugins/applenotes-sync') },
+  { name: 'Zhang', path: join(BASE_PATH, '.obsidian-zhang/plugins/applenotes-sync') },
+  { name: 'Note-Demo', path: join(NOTE_DEMO_PATH, '.obsidian/plugins/applenotes-sync') }
 ];
 
 const files = [
@@ -26,7 +26,7 @@ const files = [
   { src: 'dist/sql-wasm.wasm', dest: 'sql-wasm.wasm' }
 ];
 
-console.log('🚀 开始部署 Obsidian Notes 插件...\n');
+console.log('🚀 开始部署 AppleNotes Sync 插件...\n');
 
 let successCount = 0;
 let failCount = 0;

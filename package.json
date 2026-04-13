@@ -1,5 +1,5 @@
 {
-  "name": "obsidian-notes",
+  "name": "applenotes-sync",
   "version": "1.0.0",
   "description": "macOS 备忘录同步到 Obsidian",
   "main": "main.js",
