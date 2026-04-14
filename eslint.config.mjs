@@ -18,6 +18,7 @@ export default defineConfig([
     },
     rules: {
       "obsidianmd/sample-names": "off",
+      "obsidianmd/ui/sentence-case": ["error", { mode: "loose" }],
     },
   },
 ]);

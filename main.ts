@@ -176,10 +176,10 @@ class ObsidianNotesSettingTab extends PluginSettingTab {
     new Setting(containerEl).setName('Obsidian notes').setHeading();
 
     new Setting(containerEl)
-      .setName('Memo app folder name')
-      .setDesc('Folder name in macOS notes app to sync (default: notes)')
+      .setName('Apple notes folder')
+      .setDesc('Folder name in the notes app to sync')
       .addText(text => text
-        .setPlaceholder('Memo folder name')
+        .setPlaceholder('Notes')
         .setValue(this.plugin.settings.memoFolderName)
         .onChange(async (value) => {
           this.plugin.settings.memoFolderName = value || 'Notes';
@@ -188,17 +188,17 @@ class ObsidianNotesSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName('Obsidian target folder')
-      .setDesc('Notes from macOS memo will be imported to this folder (default: memo)')
+      .setDesc('Obsidian folder to import notes into')
       .addText(text => text
-        .setPlaceholder('Memo')
+        .setPlaceholder('Apple notes')
         .setValue(this.plugin.settings.memoNotesFolder)
         .onChange(async (value) => {
-          this.plugin.settings.memoNotesFolder = value || '备忘录';
+          this.plugin.settings.memoNotesFolder = value || 'Apple notes';
           await this.plugin.saveSettings();
         }));
 
     const donateSection = containerEl.createDiv({ cls: 'plugin-donate-section' });
-    new Setting(donateSection).setName('☕ buy me a coffee').setHeading();
+    new Setting(donateSection).setName('☕ support development').setHeading();
     donateSection.createEl('p', { text: 'If this plugin helped you, feel free to buy me a coffee ☕', cls: 'plugin-donate-desc' });
     const imgWrap = donateSection.createDiv({ cls: 'plugin-donate-qr' });
     imgWrap.createEl('img', { attr: { src: this.plugin.app.vault.adapter.getResourcePath(`${this.plugin.manifest.dir}/assets/wechat-donate.jpg`), alt: '微信打赏', width: '160' } });
