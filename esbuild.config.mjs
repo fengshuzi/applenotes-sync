@@ -1,6 +1,13 @@
 import esbuild from "esbuild";
 import process from "process";
-import { builtinModules } from "node:module";
+const nodeBuiltins = [
+  'assert', 'async_hooks', 'buffer', 'child_process', 'cluster', 'console',
+  'constants', 'crypto', 'dgram', 'diagnostics_channel', 'dns', 'domain',
+  'events', 'fs', 'http', 'http2', 'https', 'inspector', 'module', 'net',
+  'os', 'path', 'perf_hooks', 'process', 'punycode', 'querystring',
+  'readline', 'repl', 'stream', 'string_decoder', 'sys', 'timers', 'tls',
+  'trace_events', 'tty', 'url', 'util', 'v8', 'vm', 'wasi', 'worker_threads', 'zlib',
+];
 import { copyFileSync, existsSync, mkdirSync } from "fs";
 
 const banner =
@@ -31,7 +38,7 @@ const context = await esbuild.context({
     '@lezer/common',
     '@lezer/highlight',
     '@lezer/lr',
-    ...builtinModules],
+    ...nodeBuiltins],
   format: 'cjs',
   target: 'es2018',
   logLevel: "info",
