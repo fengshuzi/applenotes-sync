@@ -57,7 +57,7 @@ export class NotesStorage {
         // 在列表项内的 br 应该被忽略，其他地方使用软换行
         this.turndownService.addRule("br", {
             filter: "br",
-            replacement: (content: string, node: HTMLElement) => {
+            replacement: (_content: string, node: HTMLElement) => {
                 // 检查 br 是否在 li 标签内
                 let parent = node.parentNode as HTMLElement;
                 while (parent) {

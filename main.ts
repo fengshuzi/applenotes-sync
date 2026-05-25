@@ -65,16 +65,15 @@ export default class ObsidianNotesPlugin extends Plugin {
     try {
       new Notice('开始同步 macOS 备忘录...');
 
+      const vaultPath: string = (this.app.vault.adapter as FileSystemAdapter).getBasePath();
       const folderPath = normalizePath(this.settings.memoNotesFolder);
       if (!this.app.vault.getAbstractFileByPath(folderPath)) {
-        await this.app.vault.createFolder(folderPath);
+        fs.mkdirSync(path.join(vaultPath, ...folderPath.split('/')), { recursive: true });
       }
       const attachmentsPath = normalizePath(`${folderPath}/attachments`);
       if (!this.app.vault.getAbstractFileByPath(attachmentsPath)) {
-        await this.app.vault.createFolder(attachmentsPath);
+        fs.mkdirSync(path.join(vaultPath, ...attachmentsPath.split('/')), { recursive: true });
       }
-
-      const vaultPath: string = (this.app.vault.adapter as FileSystemAdapter).getBasePath();
       const attachmentsAbsPath = path.join(vaultPath, ...attachmentsPath.split('/'));
 
       // 先拿所有元数据（不含图片，stdout 极小）
