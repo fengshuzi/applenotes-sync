@@ -68,11 +68,11 @@ export default class ObsidianNotesPlugin extends Plugin {
       const vaultPath: string = (this.app.vault.adapter as FileSystemAdapter).getBasePath();
       const folderPath = normalizePath(this.settings.memoNotesFolder);
       if (!this.app.vault.getAbstractFileByPath(folderPath)) {
-        fs.mkdirSync(path.join(vaultPath, ...folderPath.split('/')), { recursive: true });
+        await this.app.vault.createFolder(folderPath);
       }
       const attachmentsPath = normalizePath(`${folderPath}/attachments`);
       if (!this.app.vault.getAbstractFileByPath(attachmentsPath)) {
-        fs.mkdirSync(path.join(vaultPath, ...attachmentsPath.split('/')), { recursive: true });
+        await this.app.vault.createFolder(attachmentsPath);
       }
       const attachmentsAbsPath = path.join(vaultPath, ...attachmentsPath.split('/'));
 

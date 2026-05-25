@@ -1,61 +1,60 @@
 # AppleNotes Sync
 
-将 **macOS 备忘录**同步到 Obsidian，仅手动刷新。
+Sync **macOS Apple Notes** to Obsidian, manual refresh only.
 
-## 功能特性
+## Features
 
-### macOS 备忘录（仅 macOS）
+### macOS Apple Notes (macOS only)
 
-- 侧边栏「刷新」按钮、命令「同步 macOS 备忘录」：从系统「备忘录」App 指定文件夹同步到 Obsidian
-- 支持图片、表格等，可配置 App 内文件夹名与 Obsidian 目标文件夹
+- Sidebar "refresh" button and "Sync macOS Apple Notes" command: sync notes from a specified folder in the Apple Notes app to Obsidian
+- Supports images, tables, and other rich content. Configurable source folder name and Obsidian target folder
 
-## 安装方法
+## Installation
 
-### 从 GitHub Release 安装（推荐）
+### From GitHub Release (Recommended)
 
-1. 前往 [Releases](../../releases) 页面下载最新版本
-2. 下载 `main.js`、`manifest.json`，如有 `styles.css`、`sql-wasm.wasm` 一并下载
-3. 在 Obsidian 库中创建插件目录：`.obsidian/plugins/applenotes-sync/`
-4. 将下载的文件复制到该目录
-5. 重启 Obsidian 或刷新插件列表，在设置中启用「AppleNotes Sync」
+1. Go to the [Releases](../../releases) page and download the latest version
+2. Download `main.js`, `manifest.json`, and `styles.css` if available
+3. Create a plugin directory in your Obsidian vault: `.obsidian/plugins/applenotes-sync/`
+4. Copy the downloaded files into that directory
+5. Restart Obsidian or refresh the plugin list, then enable "AppleNotes Sync" in settings
 
-### 手动构建
+### Build from Source
 
 ```bash
 cd applenotes-sync
 npm install
 npm run build
-# 将 dist/ 下的文件复制到 .obsidian/plugins/applenotes-sync/
+# Copy files from dist/ to .obsidian/plugins/applenotes-sync/
 ```
 
-## 使用方法
+## Usage
 
-1. 打开 Obsidian 设置 → 第三方插件 → **AppleNotes Sync**
-2. **macOS 备忘录**：配置「备忘录」App 内文件夹名称、Obsidian 目标文件夹（仅 macOS）
-3. 侧边栏点击刷新图标，或命令面板「同步 macOS 备忘录」执行同步
+1. Open Obsidian Settings → Community Plugins → **AppleNotes Sync**
+2. Configure the Apple Notes folder name and Obsidian target folder (macOS only)
+3. Click the refresh icon in the sidebar, or use the command palette to run "Sync macOS Apple Notes"
 
-## 开发
+## Development
 
 ```bash
 npm install
-npm run dev    # 开发模式
-npm run build  # 构建
-npm run deploy # 部署到本地 vault
-npm run release # 发布到 GitHub
+npm run dev    # Watch mode
+npm run build  # Production build
+npm run deploy # Deploy to local vaults
+npm run release # Publish to GitHub
 ```
 
-## 许可证
+## License
 
 MIT
 
 
 ---
+## ☕ Support the Author
 
-## ☕ 请作者喝杯咖啡
-
-如果这个插件帮助了你，欢迎扫码打赏，感谢支持！
+If this plugin helped you, feel free to buy me a coffee!
 
 <div align="center">
-  <img src="./assets/wechat-donate.jpg" alt="微信打赏" width="200" />
-  <p><sub>微信扫码打赏</sub></p>
+  <img src="./assets/wechat-donate.jpg" alt="WeChat Donate" width="200" />
+  <p><sub>WeChat QR Code</sub></p>
 </div>
