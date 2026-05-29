@@ -11,6 +11,11 @@ Sync **macOS Apple Notes** to Obsidian, manual refresh only.
 
 ## Installation
 
+### From Obsidian Community Plugins (Recommended)
+
+Open Obsidian Settings → Community Plugins → Browse, and search for **AppleNotes Sync** or **fengshuzi** to install directly.
+
+
 ### From GitHub Release (Recommended)
 
 1. Go to the [Releases](../../releases) page and download the latest version
