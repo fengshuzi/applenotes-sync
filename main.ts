@@ -16,7 +16,7 @@ const DEFAULT_SETTINGS: ObsidianNotesSettings = {
 };
 
 export default class ObsidianNotesPlugin extends Plugin {
-  settings: ObsidianNotesSettings;
+  settings!: ObsidianNotesSettings;
   notesStorage: NotesStorage | null = null;
 
   async onload() {

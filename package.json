@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "npm run lint && tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-    "lint": "eslint main.ts src/storage.ts",
+    "lint": "eslint \"**/*.{ts,tsx}\"",
     "deploy": "npm run build && node deploy.mjs",
     "release": "node release.mjs"
   },
@@ -22,7 +22,7 @@
     "@eslint/json": "^0.14.0",
     "@types/node": "^16.11.6",
     "@types/turndown": "^5.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/eslint-plugin": "^8.58.2",
     "@typescript-eslint/parser": "^8.58.2",
     "@typescript-eslint/utils": "^8.58.2",
     "esbuild": "0.17.3",
