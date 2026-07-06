@@ -1,15 +1,22 @@
 import { exec, execSync } from "child_process";
-import { promisify } from "util";
+
 import { readFile as fsReadFile, rename } from "fs/promises";
 import { existsSync, unlinkSync } from "fs";
 import { join } from "path";
 import TurndownService from "turndown";
 import { gfm } from "turndown-plugin-gfm";
 
-const execAsync = promisify(exec) as (
+const execAsync = (
     command: string,
     options?: { maxBuffer?: number }
-) => Promise<{ stdout: string; stderr: string }>;
+): Promise<{ stdout: string; stderr: string }> => {
+    return new Promise((resolve, reject) => {
+        exec(command, options ?? {}, (error, stdout, stderr) => {
+            if (error) reject(error);
+            else resolve({ stdout, stderr });
+        });
+    });
+};
 
 export interface Note {
     id: string;
@@ -25,7 +32,7 @@ export interface Note {
 export interface Attachment {
     filename: string;
     /** 图片已直接写到磁盘，data 不再使用，保留字段兼容旧调用 */
-    data: Buffer;
+    data: Uint8Array;
     format: string;
 }
 
@@ -177,7 +184,7 @@ export class NotesStorage {
      */
     private async detectImageExt(filePath: string): Promise<string> {
         try {
-            const buf: Buffer = await fsReadFile(filePath);
+            const buf: Uint8Array = await fsReadFile(filePath);
             if (buf[0] === 0x89 && buf[1] === 0x50) return 'png';
             if (buf[0] === 0xFF && buf[1] === 0xD8) return 'jpeg';
             if (buf[0] === 0x47 && buf[1] === 0x49) return 'gif';
@@ -335,7 +342,7 @@ export class NotesStorage {
                     unlinkSync(destPath);
                 }
                 await rename(tmpPath, destPath);
-                attachments.push({ filename, data: Buffer.alloc(0), format: ext });
+                attachments.push({ filename, data: new Uint8Array(0), format: ext });
             } catch (err: unknown) {
                 // -10000: 非图片类 attachment（内嵌对象等），静默跳过
                 // 其他错误才打日志
@@ -441,7 +448,7 @@ export class NotesStorage {
                 const format = match[1];
                 const base64Data = match[2];
                 const fullImgTag = match[0];
-                const buffer = Buffer.from(base64Data, 'base64');
+                const buffer = this.base64ToUint8Array(base64Data);
                 const filename = `${this.sanitizeFileName(noteTitle)}-${String(counter).padStart(3, '0')}.${format}`;
                 attachments.push({ filename, data: buffer, format });
                 const imgTag = `<img src="attachments/${filename}" alt="">`;
@@ -482,6 +489,15 @@ export class NotesStorage {
         markdownBody = markdownBody.replace(/ +$/gm, '');
         markdownBody = markdownBody.replace(/\n+$/, '\n');
         return markdownBody;
+    }
+
+    private base64ToUint8Array(base64: string): Uint8Array {
+        const binary = atob(base64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) {
+            bytes[i] = binary.charCodeAt(i);
+        }
+        return bytes;
     }
 
     private sanitizeFileName(name: string): string {
