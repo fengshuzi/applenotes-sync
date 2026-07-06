@@ -44,7 +44,6 @@ try {
   }
   if (existsSync('dist/sql-wasm.wasm')) files.push('dist/sql-wasm.wasm');
   if (existsSync('config.json')) files.push('config.json');
-  if (existsSync('dist/assets/wechat-donate.jpg')) files.push('dist/assets/wechat-donate.jpg');
 
   console.log(`📦 将上传文件: ${files.join(', ')}\n`);
 

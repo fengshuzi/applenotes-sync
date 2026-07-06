@@ -51,18 +51,6 @@ if (prod) {
     console.log('Copied sql-wasm.wasm to dist/');
   }
 
-  // Copy assets
-  if (existsSync('assets')) {
-    if (!existsSync('dist/assets')) mkdirSync('dist/assets', { recursive: true });
-    ['wechat-donate.jpg'].forEach(f => {
-      const src = `assets/${f}`;
-      if (existsSync(src)) {
-        copyFileSync(src, `dist/assets/${f}`);
-        console.log(`Copied ${src} -> dist/assets/${f}`);
-      }
-    });
-  }
-
   process.exit(0);
 } else {
   await context.watch();
