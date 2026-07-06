@@ -60,6 +60,6 @@ MIT
 If this plugin helped you, feel free to buy me a coffee!
 
 <div align="center">
-  <img src="./assets/wechat-donate.jpg" alt="WeChat Donate" width="200" />
+  <img src="https://raw.githubusercontent.com/fengshuzi/images/main/wechat-donate.jpg" alt="WeChat Donate" width="320" />
   <p><sub>WeChat QR Code</sub></p>
 </div>

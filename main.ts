@@ -1,6 +1,6 @@
 import { App, Plugin, PluginSettingTab, Setting, Notice, Platform, TFile, normalizePath, FileSystemAdapter } from 'obsidian';
-import * as fs from 'fs';
-import * as path from 'path';
+import { existsSync, mkdirSync, rmSync } from 'fs';
+import { join } from 'path';
 import { NotesStorage } from './src/storage';
 
 interface ObsidianNotesSettings {
@@ -74,7 +74,7 @@ export default class ObsidianNotesPlugin extends Plugin {
       if (!this.app.vault.getAbstractFileByPath(attachmentsPath)) {
         await this.app.vault.createFolder(attachmentsPath);
       }
-      const attachmentsAbsPath = path.join(vaultPath, ...attachmentsPath.split('/'));
+      const attachmentsAbsPath: string = join(vaultPath, ...attachmentsPath.split('/'));
 
       // 先拿所有元数据（不含图片，stdout 极小）
       const metas = await this.notesStorage.getNotesMeta();
@@ -97,9 +97,9 @@ export default class ObsidianNotesPlugin extends Plugin {
 
           if (meta.attachmentCount > 0) {
             // 图片直接 save 到 attachments/.tmp/，再重命名，不走 stdout
-            const tmpDir = path.join(vaultPath, ...attachmentsPath.split('/'), '.tmp');
-            if (!fs.existsSync(tmpDir)) {
-              fs.mkdirSync(tmpDir, { recursive: true });
+            const tmpDir: string = join(vaultPath, ...attachmentsPath.split('/'), '.tmp');
+            if (!existsSync(tmpDir)) {
+              mkdirSync(tmpDir, { recursive: true });
             }
             const result = await this.notesStorage.extractAttachmentsViaAppleScript(
               meta.id, meta.title, meta.attachmentCount,
@@ -133,9 +133,9 @@ export default class ObsidianNotesPlugin extends Plugin {
       }
 
       // 清理 .tmp 目录
-      const tmpDir = path.join(vaultPath, ...attachmentsPath.split('/'), '.tmp');
-      if (fs.existsSync(tmpDir)) {
-        fs.rmSync(tmpDir, { recursive: true, force: true });
+      const tmpDir: string = join(vaultPath, ...attachmentsPath.split('/'), '.tmp');
+      if (existsSync(tmpDir)) {
+        rmSync(tmpDir, { recursive: true, force: true });
       }
 
       const failMsg = failedNotes.length > 0
@@ -202,7 +202,7 @@ class ObsidianNotesSettingTab extends PluginSettingTab {
     const imgWrap = donateSection.createDiv({ cls: 'plugin-donate-qr' });
     const donateImg = imgWrap.createEl('img', { attr: { src: "https://raw.githubusercontent.com/fengshuzi/images/main/wechat-donate.jpg", alt: '微信打赏' }, cls: 'plugin-donate-img' });
     donateImg.addEventListener('click', () => {
-        const overlay = document.body.createDiv({ cls: 'plugin-donate-lightbox' });
+        const overlay = activeDocument.body.createDiv({ cls: 'plugin-donate-lightbox' });
         overlay.createEl('img', { attr: { src: "https://raw.githubusercontent.com/fengshuzi/images/main/wechat-donate.jpg", alt: '微信打赏' }, cls: 'plugin-donate-lightbox-img' });
         overlay.addEventListener('click', () => overlay.remove());
     });

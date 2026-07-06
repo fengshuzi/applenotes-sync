@@ -6,7 +6,10 @@ import { join } from "path";
 import TurndownService from "turndown";
 import { gfm } from "turndown-plugin-gfm";
 
-const execAsync = promisify(exec);
+const execAsync = promisify(exec) as (
+    command: string,
+    options?: { maxBuffer?: number }
+) => Promise<{ stdout: string; stderr: string }>;
 
 export interface Note {
     id: string;
@@ -174,7 +177,7 @@ export class NotesStorage {
      */
     private async detectImageExt(filePath: string): Promise<string> {
         try {
-            const buf = await fsReadFile(filePath);
+            const buf: Buffer = await fsReadFile(filePath);
             if (buf[0] === 0x89 && buf[1] === 0x50) return 'png';
             if (buf[0] === 0xFF && buf[1] === 0xD8) return 'jpeg';
             if (buf[0] === 0x47 && buf[1] === 0x49) return 'gif';
