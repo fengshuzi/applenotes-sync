@@ -1,8 +1,8 @@
 {
   "id": "applenotes-sync",
   "name": "AppleNotes Sync",
-  "version": "1.0.6",
-  "minAppVersion": "1.4.0",
+  "version": "1.0.7",
+  "minAppVersion": "1.13.0",
   "description": "从 macOS 备忘录 App 同步笔记到本地 vault，支持图片和表格等富文本，可配置源文件夹和目标路径，仅手动刷新.",
   "author": "lizhifeng",
   "authorUrl": "https://github.com/fengshuzi",
