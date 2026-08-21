@@ -22,8 +22,7 @@ const vaults = [
 const files = [
   { src: 'dist/main.js', dest: 'main.js' },
   { src: 'dist/manifest.json', dest: 'manifest.json' },
-  { src: 'dist/styles.css', dest: 'styles.css' },
-  { src: 'dist/sql-wasm.wasm', dest: 'sql-wasm.wasm' }
+  { src: 'dist/styles.css', dest: 'styles.css' }
 ];
 
 console.log('🚀 开始部署 AppleNotes Sync 插件...\n');
@@ -48,20 +47,6 @@ vaults.forEach((vault) => {
         console.log(`  ⚠️  警告: ${srcFile} 不存在`);
       }
     });
-    // 复制插件运行时所需的静态资源
-    const pluginAssets = ['wechat-donate.jpg'];
-    const assetsTarget = join(vault.path, 'assets');
-    if (!existsSync(assetsTarget)) mkdirSync(assetsTarget, { recursive: true });
-    pluginAssets.forEach((fileName) => {
-      const src = join('assets', fileName);
-      if (existsSync(src)) {
-        copyFileSync(src, join(assetsTarget, fileName));
-        console.log(`  ✓ 已复制 assets/${fileName}`);
-      } else {
-        console.log(`  ⚠️  警告: assets/${fileName} 不存在`);
-      }
-    });
-
     console.log(`✅ ${vault.name} 部署成功\n`);
     successCount++;
   } catch (error) {

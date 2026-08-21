@@ -45,11 +45,6 @@ if (prod) {
   if (!existsSync('dist')) mkdirSync('dist');
   copyFileSync('manifest.json', 'dist/manifest.json');
   if (existsSync('styles.css')) copyFileSync('styles.css', 'dist/styles.css');
-  const wasmSrc = 'node_modules/sql.js/dist/sql-wasm.wasm';
-  if (existsSync(wasmSrc)) {
-    copyFileSync(wasmSrc, 'dist/sql-wasm.wasm');
-    console.log('Copied sql-wasm.wasm to dist/');
-  }
 
   process.exit(0);
 } else {
