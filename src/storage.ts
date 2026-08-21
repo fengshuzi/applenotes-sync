@@ -6,35 +6,14 @@ import { join } from "path";
 import TurndownService from "turndown";
 import { gfm } from "turndown-plugin-gfm";
 
-export class AppleNotesAuthorizationError extends Error {
-    constructor() {
-        super("Apple Notes access is not authorized");
-        this.name = "AppleNotesAuthorizationError";
-    }
-}
-
-function isAppleNotesAuthorizationError(error: Error, stderr: string): boolean {
-    const details = `${error.message}\n${stderr}`.toLowerCase();
-    return details.includes("-1743")
-        || details.includes("not authorized to send apple events")
-        || details.includes("not allowed to send apple events")
-        || details.includes("不允许发送 apple 事件")
-        || details.includes("无权发送 apple 事件");
-}
-
 const execAsync = (
     command: string,
     options?: { maxBuffer?: number }
 ): Promise<{ stdout: string; stderr: string }> => {
     return new Promise((resolve, reject) => {
         exec(command, options ?? {}, (error, stdout, stderr) => {
-            if (error) {
-                reject(isAppleNotesAuthorizationError(error, stderr)
-                    ? new AppleNotesAuthorizationError()
-                    : error);
-                return;
-            }
-            resolve({ stdout, stderr });
+            if (error) reject(error);
+            else resolve({ stdout, stderr });
         });
     });
 };
