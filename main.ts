@@ -2,6 +2,10 @@ import { App, Plugin, PluginSettingTab, Setting, Notice, Platform, TFile, normal
 import { existsSync, mkdirSync, rmSync } from 'fs';
 import { join } from 'path';
 import { NotesStorage } from './src/storage';
+import {
+  APPLE_NOTES_AUTHORIZATION_INSTRUCTIONS,
+  AppleNotesAuthorizationError,
+} from './src/apple-notes-error';
 
 interface ObsidianNotesSettings {
   /** macOS 备忘录：要同步的 App 内文件夹名称 */
@@ -146,6 +150,10 @@ export default class ObsidianNotesPlugin extends Plugin {
         console.error('同步失败的笔记：', failedNotes);
       }
     } catch (error: unknown) {
+      if (error instanceof AppleNotesAuthorizationError) {
+        new Notice(`未授权访问 macOS 备忘录。${APPLE_NOTES_AUTHORIZATION_INSTRUCTIONS}`);
+        return;
+      }
       console.error('同步 macOS 备忘录失败:', error);
       new Notice(`同步失败: ${error instanceof Error ? error.message : JSON.stringify(error)}`);
     }
@@ -173,6 +181,10 @@ class ObsidianNotesSettingTab extends PluginSettingTab {
     containerEl.empty();
 
     new Setting(containerEl).setName('Obsidian notes').setHeading();
+
+    new Setting(containerEl)
+      .setName('系统授权')
+      .setDesc(APPLE_NOTES_AUTHORIZATION_INSTRUCTIONS);
 
     new Setting(containerEl)
       .setName('Apple notes folder')

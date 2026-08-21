@@ -1,12 +1,13 @@
 {
   "name": "applenotes-sync",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "macOS 备忘录同步到 Obsidian",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "npm run lint && tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
     "lint": "eslint \"**/*.{ts,tsx}\"",
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test test/*.test.mjs",
     "deploy": "npm run build && node deploy.mjs",
     "release": "node release.mjs"
   },

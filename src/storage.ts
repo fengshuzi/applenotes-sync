@@ -5,6 +5,7 @@ import { existsSync, unlinkSync } from "fs";
 import { join } from "path";
 import TurndownService from "turndown";
 import { gfm } from "turndown-plugin-gfm";
+import { normalizeAppleNotesExecutionError } from "./apple-notes-error";
 
 const execAsync = (
     command: string,
@@ -12,8 +13,11 @@ const execAsync = (
 ): Promise<{ stdout: string; stderr: string }> => {
     return new Promise((resolve, reject) => {
         exec(command, options ?? {}, (error, stdout, stderr) => {
-            if (error) reject(error);
-            else resolve({ stdout, stderr });
+            if (error) {
+                reject(normalizeAppleNotesExecutionError(error, stderr));
+                return;
+            }
+            resolve({ stdout, stderr });
         });
     });
 };
