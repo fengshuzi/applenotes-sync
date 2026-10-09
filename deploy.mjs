@@ -4,7 +4,7 @@ import { homedir } from 'os';
 
 const BASE_PATH = join(
   homedir(),
-  'Library/Mobile Documents/iCloud~md~obsidian/Documents/漂泊者及其影子'
+  '漂泊者及其影子'
 );
 
 const NOTE_DEMO_PATH = join(
@@ -13,9 +13,7 @@ const NOTE_DEMO_PATH = join(
 );
 
 const vaults = [
-  { name: 'Pro', path: join(BASE_PATH, '.obsidian-pro/plugins/applenotes-sync') },
-  { name: '2017', path: join(BASE_PATH, '.obsidian-2017/plugins/applenotes-sync') },
-  { name: 'Zhang', path: join(BASE_PATH, '.obsidian-zhang/plugins/applenotes-sync') },
+  { name: 'Main', path: join(BASE_PATH, '.obsidian/plugins/applenotes-sync') },
   { name: 'Note-Demo', path: join(NOTE_DEMO_PATH, '.obsidian/plugins/applenotes-sync') }
 ];
 
